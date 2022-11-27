@@ -87,7 +87,7 @@ const App = () => {
               //If you're familiar with webhooks,it's very similar to that!
               connectedContract.on("NewEpicNFTMinted",(from,tokenId) => {
                   console.log(from,tokenId.toNumber())
-                  alert(`Hi! 你的NFT已经成功被Mint并发送到钱包中，然后约10多分钟后会展示在Opensea中。查看链接: https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId.toNumber()}`)
+                  alert(`Hey there! We've minted your NFT and sent it to your wallet. It may take a max of 10 min to show up on OpenSea.Here's the link: https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId.toNumber()}`)
               });
 
                   console.log("Setup event listener!")
@@ -96,8 +96,8 @@ const App = () => {
                       console.log("Ethereum object dosen't exist!");
                       }
                    }catch (error){
-                       console.log(error)
-                       }
+                       console.log(error)}
+              }
           }
 
 
@@ -105,15 +105,6 @@ const App = () => {
       try {
           const {ethereum} = window;
           if (ethereum){
-              //Check if Network is Goerli
-              let chainId = await ethereum.request({method:'eth_chainId'});
-              console.log("Connected to chain"+chainId);
-              //String,hex code of the chainId fo the Goerli test network
-              const goerliChainId = "0x5";
-              if(chainId !== goerliChainId) {
-                      alert("需要切换到Goerli测试网络进行操作。");
-                  }else{
-
               const provider = new ethers.providers.Web3Provider(ethereum);
               const signer = provider.getSigner();
               const connectedContract = new ethers.Contract(CONTRACT_ADDRESS,myEpicNft.abi,signer);
@@ -123,7 +114,6 @@ const App = () => {
               console.log("Mining...please wait.")
               await nftTxn.wait();
               console.log(`Mined,see transaction:https://goerli.etherscan.io/tx/${nftTxn.hash}`);
-              }
               }else{
                   console.log("Ethereum object doesn't exist!");
                   }
@@ -141,12 +131,6 @@ const App = () => {
     </button>
   );
 
-  const renderMintUI = () => (
-    <button onClick={askContractToMintNft} className="cta-button connect-wallet-button">
-    Mint NFT
-    </button>
-  )
-
   //This runs our function when the page loads.
   useEffect(() => {
       checkIfWalletIsConnected();
@@ -157,7 +141,29 @@ const App = () => {
     <div className="App">
       <div className="container">
         <div className="header-container">
-          {currentAccount === "" ? renderNotConnectedContainer():renderMintUI()} 
+          <p className="header gradient-text">My NFT Collection</p>
+          <p className="sub-text">
+            Each unique. Each beautiful. Discover your NFT today.
+          </p>
+          {/* Add your render method here */}
+          {currentAccount === "" 
+             ? renderNotConnectedContainer()
+             :(
+             //Add askContractToMintNft action for the onClick event
+             <button onClick={askContractToMintNft} className="cta-button connect-wallet-button">
+              Mint NFT
+             </button>
+             )
+            }
+        </div>
+        <div className="footer-container">
+          <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
+          <a
+            className="footer-text"
+            href={TWITTER_LINK}
+            target="_blank"
+            rel="noreferrer"
+          >{`built on @${TWITTER_HANDLE}`}</a>
         </div>
       </div>
     </div>
