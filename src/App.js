@@ -11,7 +11,7 @@ const OPENSEA_LINK = '';
 const TOTAL_MINT_COUNT = 50;
 
 const CONTRACT_ADDRESS = window.location.search.substring(1);
-
+console.log("CONTRACT to be minted is:",CONTRACT_ADDRESS);
 const App = () => {
   
   //Just a state variable we use to store our user's public walllet.Don't forget to import useState.
