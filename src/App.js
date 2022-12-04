@@ -10,10 +10,11 @@ const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const OPENSEA_LINK = '';
 const TOTAL_MINT_COUNT = 50;
 
+//从url参数中获取合约地址
 const CONTRACT_ADDRESS = window.location.search.substring(1);
 console.log("CONTRACT to be minted is:",CONTRACT_ADDRESS);
-const App = () => {
-  
+
+const App = () => {  
   //Just a state variable we use to store our user's public walllet.Don't forget to import useState.
   const [currentAccount,setCurrentAccount] = useState("");
   
