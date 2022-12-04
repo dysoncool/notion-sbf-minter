@@ -14,10 +14,10 @@ const TOTAL_MINT_COUNT = 50;
 const queryset = window.location.search;
 const params = new URLSearchParams(queryset);
 const CONTRACT_ADDRESS = params.get('contract');
-const nft_id = params.get('nft_id');
-const toChainName = params.get('c_name');
+const toChainName = params.get('c_name')
 const toChainId = parseInt(params.get('c_id'));
 console.log("CONTRACT to be minted is:",CONTRACT_ADDRESS);
+const  abi = ethers
 
 const App = () => {  
   //Just a state variable we use to store our user's public walllet.Don't forget to import useState.
@@ -116,7 +116,7 @@ const App = () => {
               console.log("Connected to chain"+chainId);
               //String,hex code of the chainId of the connected network
               const chainToConnect = utils.hexValue(toChainId);
-              if(chainId !== chainToConnect) {
+              if(chainId !== goerliChainId) {
                       alert("需切换到"+toChainName+"试网络进行操作。");
                   }else{
 
@@ -124,12 +124,11 @@ const App = () => {
               const signer = provider.getSigner();
               const connectedContract = new ethers.Contract(CONTRACT_ADDRESS,myEpicNft,signer);
               console.log("Going to pop wallet now to gas...")
-              let nftTxn = await connectedContract.mint(nft_id);
+              let nftTxn = await connectedContract.makeAnEpicNFT();
               
               console.log("Mining...please wait.")
               await nftTxn.wait();
-              console.log('Minted!');
-              //console.log(`Mined,see transaction:https://goerli.etherscan.io/tx/${nftTxn.hash}`);
+              console.log(`Mined,see transaction:https://goerli.etherscan.io/tx/${nftTxn.hash}`);
               }
               }else{
                   console.log("Ethereum object doesn't exist!");
