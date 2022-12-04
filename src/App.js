@@ -129,6 +129,7 @@ const App = () => {
               console.log("Mining...please wait.")
               await nftTxn.wait();
               console.log('Minted!');
+              alert('恭喜!成功将一枚SeeDAOFortuneBadge发送到了你的钱包中！')
               //console.log(`Mined,see transaction:https://goerli.etherscan.io/tx/${nftTxn.hash}`);
               }
               }else{
