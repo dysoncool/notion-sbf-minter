@@ -92,7 +92,7 @@ const App = () => {
               //If you're familiar with webhooks,it's very similar to that!
               connectedContract.on("NewEpicNFTMinted",(from,tokenId) => {
                   console.log(from,tokenId.toNumber())
-                  alert(`Hi! 你的NFT已经成功被Mint并发送到钱包中，然后约10多分钟后会展示在Opensea中。查看链接: https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId.toNumber()}`)
+                  alert(`恭喜! SBF已成功被Mint到你的钱包，约10多分钟后会展示在Opensea中。每人仅限领取1枚SBF。`)
               });
 
                   console.log("Setup event listener!")
@@ -129,8 +129,6 @@ const App = () => {
               console.log("Mining...please wait.")
               await nftTxn.wait();
               console.log('Minted!');
-              alert('恭喜!成功将一枚SeeDAOFortuneBadge发送到了你的钱包中！')
-              //console.log(`Mined,see transaction:https://goerli.etherscan.io/tx/${nftTxn.hash}`);
               }
               }else{
                   console.log("Ethereum object doesn't exist!");
