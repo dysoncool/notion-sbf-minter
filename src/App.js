@@ -129,8 +129,10 @@ const App = () => {
                   console.log("Mining...please wait.")
                   await nftTxn.wait();
                   console.log('Minted!');
+                  alert('恭喜! 徽章已成功被Mint到你的钱包，约10多分钟后会展示在Opensea中。每人仅限领取1枚。')
                   }catch(err){
-                      console.log(err);
+                      console.log(err.code);
+                      console.log(err.data);
                       alert('你应该已拥有一枚，请查看钱包。如果没有，请稍等后再重新Mint:)');}
               let nftTxn = await connectedContract.mint(nft_id);
               
