@@ -131,19 +131,15 @@ const App = () => {
               console.log('Minted!');
               alert('恭喜! 徽章已成功被Mint到你的钱包，约10多分钟后会展示在Opensea中。每人仅限领取1枚。')
                  
-              let nftTxn = await connectedContract.mint(nft_id);
               
-              console.log("Mining...please wait.")
-              await nftTxn.wait();
-              console.log('Minted!');
               }
               }else{
                   console.log("Ethereum object doesn't exist!");
                   }
           }catch (err){
               console.log(err.reason);
-              console.log(err.code);
-              if(err.reason == 'execution reverted: Sorry,you already have one!'){
+              console.log(err.error.data.code);
+              if(err.error.data.code == 3){
                   alert('每人仅限领取1枚，你已经拥有1枚，请查看钱包:)');
                   }
               }
