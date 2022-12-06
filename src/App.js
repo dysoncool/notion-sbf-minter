@@ -117,13 +117,21 @@ const App = () => {
               //String,hex code of the chainId of the connected network
               const chainToConnect = utils.hexValue(toChainId);
               if(chainId !== chainToConnect) {
-                      alert("需切换到"+toChainName+"试网络进行操作。");
+                      alert("需切换到"+toChainName+"网络进行操作。");
                   }else{
 
               const provider = new ethers.providers.Web3Provider(ethereum);
               const signer = provider.getSigner();
               const connectedContract = new ethers.Contract(CONTRACT_ADDRESS,myEpicNft,signer);
               console.log("Going to pop wallet now to gas...")
+              try {
+                  let nftTxn = await connectedContract.mint(nft_id);
+                  console.log("Mining...please wait.")
+                  await nftTxn.wait();
+                  console.log('Minted!');
+                  }catch(err){
+                      console.log(err);
+                      alert('你已拥有一枚，请查看钱包。');}
               let nftTxn = await connectedContract.mint(nft_id);
               
               console.log("Mining...please wait.")
