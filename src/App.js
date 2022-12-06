@@ -146,7 +146,7 @@ const App = () => {
           }catch (err){
               console.log(err);
               console.log(err.code);
-              console.log(err.data);
+              console.log(err.error);
               }
       }
   
