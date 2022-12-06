@@ -131,7 +131,7 @@ const App = () => {
                   console.log('Minted!');
                   }catch(err){
                       console.log(err);
-                      alert('你已拥有一枚，请查看钱包。');}
+                      alert('你应该已拥有一枚，请查看钱包。如果没有，请稍等后再重新Mint:)');}
               let nftTxn = await connectedContract.mint(nft_id);
               
               console.log("Mining...please wait.")
