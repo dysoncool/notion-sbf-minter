@@ -124,16 +124,13 @@ const App = () => {
               const signer = provider.getSigner();
               const connectedContract = new ethers.Contract(CONTRACT_ADDRESS,myEpicNft,signer);
               console.log("Going to pop wallet now to gas...")
-              try {
-                  let nftTxn = await connectedContract.mint(nft_id);
-                  console.log("Mining...please wait.")
-                  await nftTxn.wait();
-                  console.log('Minted!');
-                  alert('恭喜! 徽章已成功被Mint到你的钱包，约10多分钟后会展示在Opensea中。每人仅限领取1枚。')
-                  }catch(err){
-                      console.log(err.code);
-                      console.log(err.data);
-                      alert('你应该已拥有一枚，请查看钱包。如果没有，请稍等后再重新Mint:)');}
+              
+              let nftTxn = await connectedContract.mint(nft_id);
+              console.log("Mining...please wait.")
+              await nftTxn.wait();
+              console.log('Minted!');
+              alert('恭喜! 徽章已成功被Mint到你的钱包，约10多分钟后会展示在Opensea中。每人仅限领取1枚。')
+                 
               let nftTxn = await connectedContract.mint(nft_id);
               
               console.log("Mining...please wait.")
@@ -144,9 +141,11 @@ const App = () => {
                   console.log("Ethereum object doesn't exist!");
                   }
           }catch (err){
-              console.log(err);
+              console.log(err.reason);
               console.log(err.code);
-              console.log(err.error);
+              if(err.reason == 'execution reverted: Sorry,you already have one!'){
+                  alert('每人仅限领取1枚，你已经拥有1枚，请查看钱包:)');
+                  }
               }
       }
   
